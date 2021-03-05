@@ -1,14 +1,28 @@
-package com.notin.whatsapp
+package com.notin.whatsapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
-import androidx.viewpager.widget.ViewPager
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
+import com.notin.whatsapp.R
+import com.notin.whatsapp.adapters.ChatAdapter
 import com.notin.whatsapp.adapters.MainPagerAdapter
+import com.notin.whatsapp.utils.CHAT_SCREEN_VALUE
+import com.notin.whatsapp.vm.ChatViewModel
+import com.notin.whatsapp.vmfactory.ChatViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+
 
 
     lateinit var mainPagerAdapter: MainPagerAdapter
@@ -18,8 +32,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
         addTabs()
+
+
         mainPagerAdapter = MainPagerAdapter(supportFragmentManager, tabLayout.tabCount)
         viewPager.adapter = mainPagerAdapter
+
+
+
+
+        viewPager.setCurrentItem(CHAT_SCREEN_VALUE)
+        tabLayout.selectTab(tabLayout.getTabAt(CHAT_SCREEN_VALUE))
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -32,6 +54,12 @@ class MainActivity : AppCompatActivity() {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 viewPager.currentItem = tab!!.position
+
+                if(tab!!.position == 1){
+                    fltngBtn.show()
+                }else{
+                    fltngBtn.hide()
+                }
             }
         })
     }

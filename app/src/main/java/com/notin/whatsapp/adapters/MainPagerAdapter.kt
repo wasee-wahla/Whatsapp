@@ -11,10 +11,10 @@ import com.notin.whatsapp.fragments.StatusFragment
 class MainPagerAdapter(fm: FragmentManager, var tabCount: Int) : FragmentPagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         when (position) {
-            0 -> return CameraFragment.newInstance("0", "Camera")
-            1 -> return ChatFragment.newInstance("1", "Chat")
-            2 -> return StatusFragment.newInstance("2", "Status")
-            else -> return CallsFragment.newInstance("3", "Calls")
+            0 -> return CameraFragment.newInstance()
+            1 -> return ChatFragment.newInstance()
+            2 -> return StatusFragment.newInstance()
+            else -> return CallsFragment.newInstance()
 
         }
     }
